@@ -9,3 +9,5 @@ myEmitter.emit('event');
 
 
 // Implementing custom events
+sample
+
