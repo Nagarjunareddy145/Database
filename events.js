@@ -7,4 +7,7 @@ myEmitter.on('event', () => {
 myEmitter.emit('event');
 
 
+
+// Implementing custom events
 sample
+
