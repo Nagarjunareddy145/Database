@@ -5,3 +5,6 @@ myEmitter.on('event', () => {
     console.log('An event occurred!');
 });
 myEmitter.emit('event');
+
+
+sample
