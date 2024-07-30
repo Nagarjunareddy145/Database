@@ -1,5 +1,5 @@
 import express from 'express';
-import languageRoute from './student.route';
+import studentRoute from './student.route';
 
 
 
@@ -7,7 +7,7 @@ import languageRoute from './student.route';
 const routes = express.Router();
 
  
-routes.use('/', languageRoute)
+routes.use('/', studentRoute)
 
 
 export default routes;

@@ -3,13 +3,14 @@ import dbInit from "./db/init";
 
 import routes from "./Routes";
 
-const port = 3000
+const port =3000;
 
 const app = express();
 
 app.use(express.json());
 dbInit()
 app.use('/',routes)
+
 app.get('/', (req,res) =>{
     res.send("hello world");
 })

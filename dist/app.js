@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 //import dbInit from "./db/init";
 //import routes from "./ROUTES";
-const port = 4003;
+const port =3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 //dbInit()
