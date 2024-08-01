@@ -1,3 +1,5 @@
+import Employee from './models/employee';
+import patient from './models/patient';
 import Student from './models/student';
 
 
@@ -8,6 +10,8 @@ async function init(){
 
   
     await Student.sync({alter:isDev})
+    await Employee.sync({alter:isDev})
+    await patient.sync({alter:isDev})
 }
 
 

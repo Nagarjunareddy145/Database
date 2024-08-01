@@ -3,7 +3,7 @@ import dbInit from "./db/init";
 
 import routes from "./Routes";
 
-const port =3000;
+const port =4000;
 
 const app = express();
 
