@@ -1,45 +1,44 @@
- 
-const jwt = require('jsonwebtoken');
+const express = require('express');
+const { register, login } = require('./auth');
 
-// Step 1: Create a JWT
-const createToken = (user) => {
-  const payload = {// payload for the request payload (optional)
-    username: user.username,
-    role: user.role,
-  };
+const app = express();
+const PORT = 4002;
 
-  // Secret key (In a real app, keep this secret safe)
-  const secretKey = 'arjun';
+// Middleware for parsing JSON bodies
+app.use(express.json());
 
-  // Token expiration time (e.g., 1 hour)
-  const options = { expiresIn: '30min' };
-
-  // Create the token
-  const token = jwt.sign(payload, secretKey, options);
-  return token;
-};
-
-// Step 2: Verify a JWT
-const verifyToken = (token) => {
+// Register Route
+app.post('/register', async (req, res) => {
   try {
-    const secretKey = 'arjun';
-    const decoded = jwt.verify(token, secretKey);
-    return decoded;
-  } catch (err) {
-    return null;
+    const { username, password } = req.body;
+    const user = await register(username, password);
+    res.status(201).json({ message: `User ${user.username} registered successfully` });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-};
+});
 
-// Example usage
-const user = { username: 'nagaarjuna', role: 'admin' };
-const token = createToken(user);
+// Login Route
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const token = await login(username, password);
+    res.status(200).json({ auth: true, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+// Middleware for handling 404 errors
+app.use((req, res) => {
+  res.status(404).json({ error: 'Page Not Found' });
+});
 
-console.log('Generated JWT:', token);
+// Middleware for handling errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
 
-const verifiedData = verifyToken(token);
-if (verifiedData) {
-  console.log('Verified Token Data:', verifiedData);
-} else {
-  console.log('Invalid Token');
-}
- 
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
